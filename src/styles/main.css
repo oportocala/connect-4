@@ -1,0 +1,54 @@
+/* Stiziles */
+
+html, body {
+  background: #222222;
+}
+
+/* main */
+h1 {
+    text-align: center;
+    color: red;
+    text-transform: uppercase;
+}
+
+.main {
+  width: 100%;
+  height: 100%;
+  background: #222222;
+  color: #fff;
+}
+.mask {
+    fill: grey;
+}
+
+.board {
+    background: #2754FC;
+}
+.cell {
+    color: red;
+}
+.cell.player-1 {
+    fill: red;
+}
+.cell.player-2 {
+    fill: yellow;
+}
+/* transitions */
+
+.fade-enter {
+  opacity: 0.01;
+  transition: opacity .5s ease-in;
+}
+
+.fade-enter.fade-enter-active {
+  opacity: 1;
+}
+
+.fade-leave {
+  opacity: 1;
+  transition: opacity .5s ease-in;
+}
+
+.fade-leave.fade-leave-active {
+  opacity: 0.01;
+}

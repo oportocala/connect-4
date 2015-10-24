@@ -1,0 +1,5 @@
+{
+  "generator-react-reflux-webpack": {
+    "styles-language": "sass"
+  }
+}
