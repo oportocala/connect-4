@@ -13,18 +13,12 @@ require('styles/main.css');
 
 class Game extends React.Component {
 
-
     constructor () {
         super();
         this.state = {
-            cells: [
-
-
-
-            ],
-
+            cells: [],
+            winners: [],
             currentPlayer: 1,
-
             overlay: {
                 visible: false,
                 message: ''
@@ -47,9 +41,9 @@ class Game extends React.Component {
         return (currentPlayer === 1) ? 2: 1;
     }
 
-    checkWon (cells = [], lastMovePos = false, player = 1) {
+    findWinningCombinations (cells = [], lastMovePos = false, player = 1) {
         if (cells.length < 4) {
-            return false;
+            return [];
         }
 
         var playerPositions = cells
@@ -64,46 +58,54 @@ class Game extends React.Component {
         var movesOnDiag1 = Array(Math.max(rows, cols)).fill(false);
         var movesOnDiag2 = Array(Math.max(rows, cols)).fill(false);
 
+        // Check column
         playerPositions
             .filter( (pos) => pos.col === lastMovePos.col)
-            .forEach( (pos) => {
-                movesOnColumn[pos.row] = true;
-            });
+            .forEach( (pos) => movesOnColumn[pos.row] = pos);
 
+        // Check rows
         playerPositions
             .filter( (pos) => pos.row === lastMovePos.row)
-            .forEach( (pos) => {
-                movesOnRow[pos.col] = true;
-            });
+            .forEach( (pos) => movesOnRow[pos.col] = pos);
 
         // First diagonal, left-top to right-bottom is determined by addition
         playerPositions
             .filter( (pos) => pos.col + pos.row  === lastMovePos.col + lastMovePos.row)
-            .forEach( (pos) => {console.log(pos.col, pos.row); movesOnDiag1[pos.row] = true;});
+            .forEach( (pos) => movesOnDiag1[pos.row] = pos);
 
         // Second diagonal, right-top, left-bottom is determined by subtraction
         playerPositions
             .filter( (pos) => pos.row - pos.col === lastMovePos.row - lastMovePos.col)
-            .forEach( (pos) => movesOnDiag2[pos.row] = true);
+            .forEach( (pos) => movesOnDiag2[pos.row] = pos);
 
-        return this.checkArray(movesOnColumn) || this.checkArray(movesOnRow) ||
-            this.checkArray(movesOnDiag1) || this.checkArray(movesOnDiag2);
+        var resultsCol = this.checkArray(movesOnColumn);
+        var resultsRow = this.checkArray(movesOnRow);
+        var resultsDiag1 = this.checkArray(movesOnDiag1);
+        var resultsDiag2 = this.checkArray(movesOnDiag2);
+
+        var ret = [];
+        ret = ret.concat(resultsCol, resultsRow, resultsDiag1, resultsDiag2);
+
+        return ret;
     }
 
     checkArray (array, numberOf = 4) {
         var c = 0;
+        var ret = [];
         for(var i=0;i< array.length; i++) {
-            if (array[i] === true) {
+            if (array[i] !== false) {
                 c++;
+                ret.push(array[i]);
                 if (c === numberOf) {
-                    return true;
+                    return ret;
                 }
             } else {
                 c = 0;
+                ret = [];
             }
         }
 
-        return false;
+        return [];
     }
 
     checkDraw (cells = []) {
@@ -116,10 +118,7 @@ class Game extends React.Component {
 
     onColClick (col) {
         var row = this.determineRow(col);
-
         var pos = {col: col, row: row};
-
-        console.log(pos);
 
         if (!this.canAddPosition(pos)) {
             console.log('wuoah woah woah, cannot add anymore');
@@ -129,7 +128,8 @@ class Game extends React.Component {
         var move = {pos: pos, player: this.state.currentPlayer};
         this.state.cells.push(move);
 
-        if (this.checkWon(this.state.cells, pos, this.state.currentPlayer)) {
+        var winners = this.findWinningCombinations(this.state.cells, pos, this.state.currentPlayer);
+        if (winners.length) {
             this.showOverlay('GAME was won by PLAYER ' + this.state.currentPlayer);
         } else {
             if (this.checkDraw(this.state.cells)) {
@@ -137,7 +137,7 @@ class Game extends React.Component {
             }
         }
 
-        this.setState({cells: this.state.cells, currentPlayer: this.getNextPlayer(this.state.currentPlayer)});
+        this.setState({winners: winners, cells: this.state.cells, currentPlayer: this.getNextPlayer(this.state.currentPlayer)});
     }
 
     showOverlay (message = '') {
@@ -153,7 +153,7 @@ class Game extends React.Component {
         var overlay = this.state.overlay;
         return (
             <div className='main'>
-                <Board cols={this.props.cols} rows={this.props.rows} cells={this.state.cells} onColClick={this.onColClick.bind(this)}/>
+                <Board winners={this.state.winners} cols={this.props.cols} rows={this.props.rows} cells={this.state.cells} onColClick={this.onColClick.bind(this)}/>
                 <CurrentPlayer player={this.state.currentPlayer}/>
                 <Overlay message={overlay.message} visible={overlay.visible}/>
             </div>

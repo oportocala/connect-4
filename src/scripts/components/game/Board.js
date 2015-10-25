@@ -25,6 +25,9 @@ class Board extends React.Component {
 
         // chips
         const cells = props.cells.map((cell, i) => {
+            if (props.winners.indexOf(cell.pos) !== -1) {
+                cell.highlight = true;
+            }
             return (<Cell key={i} {...cell} size={props.cellSize} pos={this.convertPosition(cell.pos)}/>);
         });
 
