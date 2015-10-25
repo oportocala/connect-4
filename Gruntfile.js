@@ -41,7 +41,7 @@ module.exports = function (grunt) {
 
     connect: {
       options: {
-        port: 800
+        port: 8100
       },
 
       dist: {
