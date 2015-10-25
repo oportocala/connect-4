@@ -10,7 +10,7 @@ class App extends React.Component {
 
         return (<div>
             <Link to="/">
-                <h1>Connect 4</h1>
+                <h1><img src="images/title.svg" width="263"/></h1>
             </Link>
 
             <div className="inner">

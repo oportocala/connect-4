@@ -1,7 +1,7 @@
-/* Stiziles */
-
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700);
 html, body {
-  background: #222222;
+    background: #202630;
+    font-family: 'Source Sans Pro', sans-serif;
 }
 
 /* main */
@@ -18,12 +18,11 @@ a {
 
 .menu {
     text-align: center;
-    margin-top: 50px;
 }
 .menu a{
     font-size: 21px;
     width: 100%;
-    background: #2754FC;
+    background: #6DC28E;
     text-transform: uppercase;
     padding: 10px;
     border-radius: 5px;
@@ -48,7 +47,7 @@ a {
 .overlay a {
     font-size: 21px;
     width: 100%;
-    background: #2754FC;
+    background: #6DC28E;
     text-transform: uppercase;
     padding: 10px;
     border-radius: 5px;
@@ -58,21 +57,20 @@ a {
   margin: 0 auto;
   width: 560px;
   height: 100%;
-  background: #222222;
+  background: #202630;
   color: #fff;
   position: relative;
 }
 
 .mask {
-    fill: #2754FC;
+    fill: #394254;
     mask: url(#holes);
 }
 
 .board {
-    background: #222222;
+    background: #202630;
 }
 .cell {
-    color: red;
     transition: transform .5s ease-in-out;
     /*transform: translateY(-50vw);*/
 }
@@ -83,22 +81,18 @@ a {
 }
 
 .cell.player-1.highlight {
-    animation: color_change_player1 1s infinite alternate;
+    animation: color_change_player1 .5s infinite alternate;
 }
 .cell.player-2.highlight {
-    animation: color_change_player2 1s infinite alternate;
-}
-
-.cell.fixed {
-    transform: translateY(0);
+    animation: color_change_player2 .5s infinite alternate;
 }
 
 
 .cell.player-1 {
-    fill: red;
+    fill: #6DC28E;
 }
 .cell.player-2 {
-    fill: yellow;
+    fill: #F68F3A;
 }
 
 .cell.latest{
@@ -127,12 +121,12 @@ a {
 
 
 @keyframes color_change_player1 {
-    from { fill: red; }
-    to { fill: green; }
+    from { fill: #6DC28E; }
+    to { fill: white; }
 }
 
 @keyframes color_change_player2 {
-    from { fill: yellow; }
-    to { fill: green; }
+    from { fill: #F68F3A; }
+    to { fill: white; }
 }
 

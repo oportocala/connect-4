@@ -9,11 +9,11 @@ class Cell extends React.Component {
         const props = this.props;
         const pos = props.pos;
         const r = props.size/2;
-        var  className = "cell player-" + props.player + (props.latest ?' latest' : '');
+        var className = "cell player-" + props.player;
         if (props.highlight) {
             className += ' highlight';
         }
-        return (<g><circle cx={pos.x+r} cy={pos.y-r} r={r} className={className} /></g>);
+        return (<circle cx={pos.x+r} cy={pos.y-r} r={r} className={className} />);
     }
 }
 
