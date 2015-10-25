@@ -2,17 +2,18 @@
 
 import React from 'react';
 import Cell from './board/cell';
-import Mask1 from './board/mask';
+import Front from './board/front';
 
 class Board extends React.Component {
 
-    convertPosition (pos) {
+    convertPosition (pos, offset = 0) {
         const props = this.props;
         const size = props.cellSize;
         const totalHeight = size * props.rows;
 
-        const x = (pos.col * size);
-        const y = totalHeight - (pos.row * size);
+        const x = (pos.col * size) + offset;
+        const y = (totalHeight - (pos.row * size)) - offset;
+
         return {
             x: x,
             y: y
@@ -21,18 +22,34 @@ class Board extends React.Component {
 
     render () {
         const props = this.props;
+
+        // chips
         const cells = props.cells.map((cell, i) => {
             return (<Cell key={i} {...cell} size={props.cellSize} pos={this.convertPosition(cell.pos)}/>);
         });
+
+        // holes
         const allCells = [];
-        for (var i = 0; i< props.cols; i++) {
-            for (var j = 0; j < props.rows; j++) {
-                var pos = {col: i, row: j};
-                console.log(pos);
-                allCells.push(<Cell key={'cell_'+((i*props.cols) + j)} size={props.cellSize} pos={this.convertPosition(pos)}/>);
+        const offset = 10;
+        let i, j, pos, index, holeSize = props.cellSize - (offset*2);
+        for (i = 0; i< props.cols; i++) {
+            for (j = 0; j < props.rows; j++) {
+                pos = this.convertPosition({col: i, row: j}, offset);
+                index = (i * props.cols) + j;
+
+                allCells.push(<Cell key={`hole_${index}`} size={holeSize} pos={pos}/>);
             }
         }
-        console.log(allCells);
+        // hit area
+        var hitAreas = [];
+        for (i = 0; i< props.cols; i++) {
+            var w = props.cellSize;
+            var x = i*w;
+            hitAreas.push(<rect key={`hit-area-${i}`} fill="transparent" height="100%"
+                                x={x} width={w}
+                                onClick={this.props.onColClick.bind(this, i)}/>);
+        }
+
         return (
             <svg
                 version="1.1"
@@ -45,11 +62,13 @@ class Board extends React.Component {
                     {cells}
                 </g>
 
-                <Mask1 {...props}>
-                    <g>
-                        {allCells}
-                    </g>
-                </Mask1>
+                <Front {...props}>
+                    {allCells}
+                </Front>
+
+                <g className="hit-areas">
+                    {hitAreas}
+                </g>
             </svg>
         );
     }

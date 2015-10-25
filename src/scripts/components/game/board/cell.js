@@ -8,7 +8,7 @@ class Cell extends React.Component {
         const props = this.props;
         const pos = props.pos;
         const r = props.size/2;
-        const className = "cell player-" + props.player;
+        const className = "cell player-" + props.player + (props.latest ?' latest' : '');
 
         return (<circle cx={pos.x+r} cy={pos.y-r} r={r} className={className} />);
     }

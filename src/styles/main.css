@@ -17,15 +17,18 @@ h1 {
   background: #222222;
   color: #fff;
 }
+
 .mask {
-    fill: grey;
+    fill: #2754FC;
+    mask: url(#holes);
 }
 
 .board {
-    background: #2754FC;
+    background: grey;
 }
 .cell {
     color: red;
+    transition: .5s ease-in-out;
 }
 .cell.player-1 {
     fill: red;
@@ -33,6 +36,11 @@ h1 {
 .cell.player-2 {
     fill: yellow;
 }
+
+.cell.latest{
+    -webkit-transform: translateY(-50vw);
+}
+
 /* transitions */
 
 .fade-enter {
