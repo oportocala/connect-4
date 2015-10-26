@@ -103,7 +103,15 @@ a {
 .cell.player-2.highlight {
     animation: color_change_player2 .5s infinite alternate;
 }
+.overlay .player-avatar  .image {
+    background: none;
 
+}
+.overlay .player-avatar {
+    position: absolute;
+    right: 0;
+    margin: 15px;
+}
 
 .cell.player-1 {
     fill: #6DC28E;
