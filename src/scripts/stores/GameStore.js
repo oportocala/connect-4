@@ -185,11 +185,6 @@ const GameStore = Reflux.createStore({
             cells: cells,
             currentPlayer: this.getNextPlayer(currentPlayer)
         });
-
-        setTimeout(() => {
-            self._data.cells = self.clearLatest(self._data.cells);
-            self.trigger();
-        }, 100);
     },
 
     clearLatest: function (cells) {

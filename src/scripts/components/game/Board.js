@@ -3,6 +3,7 @@
 import React from 'react';
 
 import Cell from './board/cell';
+import Hole from './board/hole';
 import Front from './board/front';
 
 class Board extends React.Component {
@@ -46,7 +47,7 @@ class Board extends React.Component {
                 pos = this.convertPosition({col: i, row: j}, offset);
                 index = (i * props.cols) + j;
 
-                allCells.push(<Cell key={`hole_${index}`} size={holeSize} pos={pos}/>);
+                allCells.push(<Hole key={`hole_${index}`} size={holeSize} pos={pos}/>);
             }
         }
 

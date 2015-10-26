@@ -1,8 +1,9 @@
+'use strict';
+
 import React from 'react';
 import classNames from 'classnames';
-import {Motion, spring} from 'react-motion';
 
-class Cell extends React.Component {
+class Hole extends React.Component {
 
     render () {
         const props = this.props;
@@ -15,13 +16,11 @@ class Cell extends React.Component {
         if (props.highlight) {
             className += ' highlight';
         }
-        var y = -props.size;
-        return (
-            <Motion defaultStyle={{y: y}} style={{y: spring(pos.y - r, [120, 17])}}>
-                {value => <circle r={r} cx={pos.x + r} cy={value.y} className={className} />}
-            </Motion>
-        );
+        if (props.latest) {
+            className += ' latest';
+        }
+        return (<circle cx={pos.x+r} cy={pos.y-r} r={r} className={className} />);
     }
 }
 
-export default Cell;
+export default Hole;
