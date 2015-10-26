@@ -20,23 +20,36 @@ a {
     text-align: center;
 }
 .menu a{
-    font-size: 21px;
-    width: 100%;
+    font-size: 26px;
     background: #6DC28E;
     text-transform: uppercase;
     padding: 10px;
-    border-radius: 5px;
+    border-radius: 10px;
+    width: 240px;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+.hit-areas {
+    cursor: pointer;
+}
+.replay-btn {
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .overlay {
     position: absolute;
-    background-color: rgba(255,255,255,0.9);
+    background-color: white;
     width: 100%;
-    height: 120px;
+    height: 110px;
     top: 0;
     display: none;
     text-align: center;
     color: black;
+}
+.overlay img {
+    margin: 10px;
 }
 .overlay.visible {
     display: block;
@@ -44,22 +57,17 @@ a {
 .overlay .message{
     font-size: 21px;
 }
-.overlay a {
-    font-size: 21px;
-    width: 100%;
-    background: #6DC28E;
-    text-transform: uppercase;
-    padding: 10px;
-    border-radius: 5px;
-}
 
+.inner {
+    width: 560px;
+    margin: 0 auto;
+    position: relative;
+}
 .main {
-  margin: 0 auto;
-  width: 560px;
+  width: 100%;
   height: 100%;
   background: #202630;
   color: #fff;
-  position: relative;
 }
 
 .mask {
@@ -73,6 +81,10 @@ a {
 .cell {
     transition: transform .5s ease-in-out;
     /*transform: translateY(-50vw);*/
+}
+
+.cell.latest{
+    transform: translateY(-30vw);
 }
 
 .cell.highlight {
@@ -94,31 +106,36 @@ a {
 .cell.player-2 {
     fill: #F68F3A;
 }
-
-.cell.latest{
-    transform: translateY(-50vw);
+.player-avatar {
+}
+.player-avatar .player-1.active {
+    fill: #6DC28E;
+}
+.player-avatar .image {
+    background: #394254;
+    padding: 10px;
+}
+.player-avatar .player-2.active {
+    fill: #F68F3A;
+}
+.player-avatar .name {
+    text-transform: uppercase;
+    text-align: center;
+    color: #394254;
+    font-weight: bold;
+    font-size: 10px;
+    margin-top: 10px;
 }
 
-/* transitions */
-
-.fade-enter {
-  opacity: 0.01;
-  transition: opacity .5s ease-in;
+.player-avatar {
+    position: absolute;
+    top: 0;
 }
-
-.fade-enter.fade-enter-active {
-  opacity: 1;
+.player-avatar.player-2 {
+    position: absolute;
+    top: 0;
+    right: 0;
 }
-
-.fade-leave {
-  opacity: 1;
-  transition: opacity .5s ease-in;
-}
-
-.fade-leave.fade-leave-active {
-  opacity: 0.01;
-}
-
 
 @keyframes color_change_player1 {
     from { fill: #6DC28E; }

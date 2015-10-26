@@ -13,6 +13,9 @@ class Cell extends React.Component {
         if (props.highlight) {
             className += ' highlight';
         }
+        if (props.latest) {
+            className += ' latest';
+        }
         return (<circle cx={pos.x+r} cy={pos.y-r} r={r} className={className} />);
     }
 }

@@ -4,7 +4,8 @@ import React from 'react';
 import Immutable from 'immutable';
 
 import Board from './game/board';
-import Overlay from './game/overlay';
+import WinnerOverlay from './game/winner-overlay';
+import DrawOverlay from './game/draw-overlay';
 import CurrentPlayer from './game/current-player';
 
 // CSS
@@ -18,11 +19,12 @@ class Game extends React.Component {
         this.state = {
             cells: [],
             winners: [],
+
             currentPlayer: 1,
-            overlay: {
-                visible: false,
-                message: ''
-            }
+
+            winnerPlayer: 1,
+            winnerVisible: false,
+            drawVisible: false
         };
     }
 
@@ -113,7 +115,7 @@ class Game extends React.Component {
     }
 
     canAddPosition (pos) {
-        return pos.row < this.props.rows;
+        return this.state.winners.length === 0 && pos.row < this.props.rows;
     }
 
     onColClick (col) {
@@ -125,37 +127,46 @@ class Game extends React.Component {
             return;
         }
 
-        var move = {pos: pos, player: this.state.currentPlayer};
+        var move = {pos: pos, player: this.state.currentPlayer, latest: true};
         this.state.cells.push(move);
 
         var winners = this.findWinningCombinations(this.state.cells, pos, this.state.currentPlayer);
         if (winners.length) {
-            this.showOverlay('GAME was won by PLAYER ' + this.state.currentPlayer);
+            //this.showOverlay('GAME was won by PLAYER ' + this.state.currentPlayer);
+            this.setState({winnerVisible: true, winnerPlayer: this.state.currentPlayer});
+
         } else {
             if (this.checkDraw(this.state.cells)) {
                 this.showOverlay('GAME was a draw!');
+                this.setState({drawVisible: true});
             }
         }
 
-        this.setState({winners: winners, cells: this.state.cells, currentPlayer: this.getNextPlayer(this.state.currentPlayer)});
-    }
+        var self = this;
 
-    showOverlay (message = '') {
+        // Now animate the thing by removing latest from it
         this.setState({
-            overlay: {
-                message: message,
-                visible: true
-            }
+            winners: winners,
+            cells: this.state.cells,
+            currentPlayer: this.getNextPlayer(this.state.currentPlayer)
+        }, () =>{
+            setTimeout(() => {
+                self.setState(self.state.cells.map( (item) => {
+                    item.latest = undefined;
+                    return item;
+                }));
+            }, 1);
         });
     }
 
+
     render () {
-        var overlay = this.state.overlay;
         return (
             <div className='main'>
                 <Board winners={this.state.winners} cols={this.props.cols} rows={this.props.rows} cells={this.state.cells} onColClick={this.onColClick.bind(this)}/>
                 <CurrentPlayer player={this.state.currentPlayer}/>
-                <Overlay message={overlay.message} visible={overlay.visible}/>
+                <WinnerOverlay player={this.state.winnerPlayer} visible={this.state.winnerVisible}/>
+                <DrawOverlay visible={this.state.drawVisible}/>
             </div>
         );
     }

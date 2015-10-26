@@ -1,7 +1,6 @@
 'use strict';
 
 import React from 'react';
-import {Motion, spring} from 'react-motion';
 
 import Cell from './board/cell';
 import Front from './board/front';
@@ -22,6 +21,8 @@ class Board extends React.Component {
         };
     }
 
+
+
     render () {
         const props = this.props;
 
@@ -30,7 +31,12 @@ class Board extends React.Component {
             if (props.winners.indexOf(cell.pos) !== -1) {
                 cell.highlight = true;
             }
-            return (<Cell key={`cell_${i}`} {...cell} size={props.cellSize} pos={this.convertPosition(cell.pos)}/>);
+
+
+            return (<Cell
+                key={`cell_${i}`} {...cell}
+                size={props.cellSize} pos={this.convertPosition(cell.pos)}
+                />);
         });
 
         // holes
