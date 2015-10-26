@@ -21,8 +21,6 @@ class Board extends React.Component {
         };
     }
 
-
-
     render () {
         const props = this.props;
 
@@ -51,6 +49,7 @@ class Board extends React.Component {
                 allCells.push(<Cell key={`hole_${index}`} size={holeSize} pos={pos}/>);
             }
         }
+
         // hit area
         var hitAreas = [];
         for (i = 0; i< props.cols; i++) {
@@ -58,7 +57,8 @@ class Board extends React.Component {
             var x = i*w;
             hitAreas.push(<rect key={`hit-area-${i}`} fill="transparent" height="100%"
                                 x={x} width={w}
-                                onClick={this.props.onColClick.bind(this, i)}/>);
+                                onClick={this.props.onColClick.bind(this, i)}
+                />);
         }
 
         return (

@@ -118,7 +118,7 @@ class Game extends React.Component {
         return this.state.winners.length === 0 && pos.row < this.props.rows;
     }
 
-    onColClick (col) {
+    onColClick (col, event) {
         var row = this.determineRow(col);
         var pos = {col: col, row: row};
 
@@ -132,24 +132,22 @@ class Game extends React.Component {
 
         var winners = this.findWinningCombinations(this.state.cells, pos, this.state.currentPlayer);
         if (winners.length) {
-            //this.showOverlay('GAME was won by PLAYER ' + this.state.currentPlayer);
             this.setState({winnerVisible: true, winnerPlayer: this.state.currentPlayer});
 
         } else {
             if (this.checkDraw(this.state.cells)) {
-                this.showOverlay('GAME was a draw!');
                 this.setState({drawVisible: true});
             }
         }
 
         var self = this;
 
-        // Now animate the thing by removing latest from it
+        // Now animate the thing by removing latest from it on the next tick
         this.setState({
             winners: winners,
             cells: this.state.cells,
             currentPlayer: this.getNextPlayer(this.state.currentPlayer)
-        }, () =>{
+        }, () => {
             setTimeout(() => {
                 self.setState(self.state.cells.map( (item) => {
                     item.latest = undefined;

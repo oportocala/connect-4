@@ -9,7 +9,10 @@ class Cell extends React.Component {
         const props = this.props;
         const pos = props.pos;
         const r = props.size/2;
-        var className = "cell player-" + props.player;
+        var className = 'cell';
+        if (props.player) {
+            className += ' player-' + props.player;
+        }
         if (props.highlight) {
             className += ' highlight';
         }
