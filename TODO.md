@@ -1,7 +1,6 @@
 ## TODO
 
-1. move out game logic to a store
-2. use immutable.js
-3. make it responsive
-4. add SFX
-5. cleanup winner screen, cleanup draw screen
+1. use immutable.js
+2. make it responsive
+3. add SFX
+4. cleanup winner screen, cleanup draw screen

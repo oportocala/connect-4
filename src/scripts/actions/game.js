@@ -1,7 +1,10 @@
-'use strict';
-
 import Reflux from 'reflux';
 
-export var GameActions = Reflux.createActions({
-	"start"
-});
+var  GameActions = Reflux.createActions([
+    'move',
+    'playerWon',
+    'draw',
+    'restart'
+]);
+
+export default GameActions;
