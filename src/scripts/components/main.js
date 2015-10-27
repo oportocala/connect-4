@@ -9,7 +9,6 @@ import { render } from 'react-dom';
 
 import { Router, Route, IndexRoute } from 'react-router';
 
-// Re-usable application components
 // Make sure the stores are included
 import * as stores from "stores";
 

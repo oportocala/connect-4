@@ -3,6 +3,9 @@
 import React from 'react';
 import {Link} from 'react-router';
 
+// CSS
+require('styles/normalize.css');
+require('styles/main.css');
 
 class App extends React.Component {
 
