@@ -28,7 +28,11 @@ class Game extends React.Component {
     render () {
         return (
             <div className='main'>
-                <Board winners={this.state.winners} cols={this.props.cols} rows={this.props.rows} cells={this.state.cells} onColClick={GameActions.move}/>
+                <Board cols={this.props.cols} rows={this.props.rows}
+                       cells={this.state.cells}
+                       winners={this.state.winners}
+                       onColClick={GameActions.move}
+                    />
                 <CurrentPlayer player={this.state.currentPlayer}/>
                 <WinnerOverlay player={this.state.winnerPlayer} visible={this.state.winnerVisible}/>
                 <DrawOverlay visible={this.state.drawVisible}/>
