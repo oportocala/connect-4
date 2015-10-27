@@ -1,4 +1,6 @@
+import Immutable from 'immutable';
 
+const num = 4;
 export function determineRow (cells, col) {
     "use strict";
     var allRows = cells
@@ -35,7 +37,7 @@ export function findContStreamOf (array, numberOf = 4) {
 export function findWinningCombination (cells = [], rows = 6, cols = 7, lastMovePos = false, player = 1) {
     "use strict";
 
-    if (cells.length < 7) {
+    if (cells.length < (num * 2) - 1) {
         return [];
     }
 
@@ -68,10 +70,10 @@ export function findWinningCombination (cells = [], rows = 6, cols = 7, lastMove
         .filter( (pos) => pos.row - pos.col === lastMovePos.row - lastMovePos.col)
         .forEach( (pos) => movesOnDiag2[pos.row] = pos);
 
-    var resultsCol = findContStreamOf(movesOnColumn);
-    var resultsRow = findContStreamOf(movesOnRow);
-    var resultsDiag1 = findContStreamOf(movesOnDiag1);
-    var resultsDiag2 = findContStreamOf(movesOnDiag2);
+    var resultsCol = findContStreamOf(movesOnColumn, num);
+    var resultsRow = findContStreamOf(movesOnRow, num);
+    var resultsDiag1 = findContStreamOf(movesOnDiag1, num);
+    var resultsDiag2 = findContStreamOf(movesOnDiag2, num);
 
     return [].concat(resultsCol, resultsRow, resultsDiag1, resultsDiag2);
 }
