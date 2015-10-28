@@ -55,7 +55,7 @@ a {
     color: black;
 }
 .overlay img {
-    margin: 10px;
+    margin: 13px;
 }
 .overlay.visible {
     display: block;
