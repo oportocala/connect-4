@@ -18,6 +18,7 @@ import Menu from './Menu';
 import Game from './Game';
 import NoMatch from './NoMatch';
 
+require('./utils/ga');
 
 render((
     <Router>

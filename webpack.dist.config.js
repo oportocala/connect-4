@@ -27,6 +27,7 @@ module.exports = {
   },
 
   plugins: [
+    new webpack.DefinePlugin({GA_TRACKING_CODE: JSON.stringify('UA-50451020-1')}),
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
