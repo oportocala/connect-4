@@ -37,9 +37,9 @@ export function findContStreamOf (array, numberOf = 4) {
 export function findWinningCombination (cells = [], rows = 6, cols = 7, lastMovePos = false, player = 1) {
     "use strict";
 
-    if (cells.length < (num * 2) - 1) {
+    /*if (cells.length < (num * 2) - 1) {
         return [];
-    }
+    }*/
 
     var playerPositions = cells
         .filter( (move) => (move.player === player))
@@ -92,4 +92,9 @@ export function checkDraw (cells, rows, cols) {
 export function getNextPlayer (player) {
     "use strict";
     return (player === 1) ? 2 : 1;
+}
+
+export function getCell (col, row, player) {
+    "use strict";
+    return {pos: {col: col, row: row}, player: player};
 }

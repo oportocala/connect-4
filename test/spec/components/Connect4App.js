@@ -1,3 +1,4 @@
+/*
 'use strict';
 
 import React from 'react/addons';
@@ -18,3 +19,4 @@ describe('Main', function () {
     expect(component).toBeDefined();
   });
 });
+*/

@@ -72,9 +72,9 @@ const GameStore = Reflux.createStore({
         }
 
         var currentPlayer = data.currentPlayer;
-        var move = {pos: pos, player: currentPlayer};
+        var cell = GameLogic.getCell(pos.col, pos.row, currentPlayer);
 
-        cells.push(move);
+        cells.push(cell);
 
         var winners = GameLogic.findWinningCombination(
             cells, rows, cols, pos, currentPlayer

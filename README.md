@@ -11,3 +11,6 @@ An amazing implementation of connect 4 done using React 0.14 and Reflux in SVG f
 
 ## Distribution
 `grunt build`
+
+## Testing
+`npm test`
